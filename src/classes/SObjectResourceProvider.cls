@@ -31,6 +31,7 @@ public class SObjectResourceProvider implements IResourceProvider{
 		if(fields == null){
 			Schema.SObjectType parentType = Schema.getGlobalDescribe().get(sObjectName);
 			fields = parentType.getDescribe().fields.getMap().keySet();
+			system.debug('SObjectResourceProvider.describeSource ' + fields);
 		}
 		return fields;
 	}
@@ -41,6 +42,9 @@ public class SObjectResourceProvider implements IResourceProvider{
 	 * @return     return description
 	 */
 	public Object getValue(String key){
+		if(fields == null) {
+			describeSource();
+		}
 		if(fields.contains(key)){
 			return sourceObject.get(key);
 		}

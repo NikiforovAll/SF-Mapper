@@ -15,3 +15,5 @@ apex-scripts/*
 !apex-scripts/*.cls
 .vim-force.com
 debug
+.vscode/
+apex-scripts/

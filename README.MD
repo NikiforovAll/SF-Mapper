@@ -11,24 +11,29 @@ SObjectMapper.initialize('Lead',
     new FieldMapping(
         //object mapping 
         new Map<String, Set<String>>{
+            //lowercase
             'Account' => new Set<String>{'phone', 'company'},
             'Contact' => new Set<String>{'email', 'city'}
         },
         //field mapping
         new Map<String, String>{
-            'company' => 'Name',
-            'city' => 'MailingCity'
+            //lowercase
+            'company' => 'name',
+            'city' => 'mailingcity'
         }
     )
 );
 ```
 Then in your application code, execute the mappings:
 ```java
-    Map<String, sObject> result = SObjectMapper.mapObject(new SObjectResourceProvider(lead));
+    Map<String, sObject> result = SObjectMapper.mapObject(lead);
     Account account = (Account)result.get('Account');
     Contact contact = (Contact)result.get('Contact');
 ```
 For more details please see: [getting started guide](https://github.com/NikiforovAll/SF-Mapper/wiki/Getting-started).
+### What can I map?
+You can take as initial resource pretty much everything that implements *IResourceProviderInterface*. 
+But SObject to SObjects and JSON to SObjects supported out of the box.  
 ### Where can I get it?
 You can use awesome sf deployment tool [githubsfdeploy](https://github.com/afawcett/githubsfdeploy).
 

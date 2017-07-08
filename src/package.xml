@@ -9,6 +9,8 @@
 		<members>FieldMapping</members>
 		<members>FieldMappingTest</members>
 		<members>SObjectResourceProviderTest</members>
+		<members>JsonResourceProvider</members>
+		<members>JsonResourceProviderTest</members>
 		<name>ApexClass</name>
 	</types>
 	<version>36.0</version>
