@@ -11,6 +11,12 @@
 		<members>SObjectResourceProviderTest</members>
 		<members>JsonResourceProvider</members>
 		<members>JsonResourceProviderTest</members>
+		<members>IFieldFormatter</members>
+		<members>FieldFormatterFactory</members>
+		<members>FormatterResult</members>
+		<members>FormatterResultTest</members>
+		<members>FieldFormatterFactoryTest</members>
+		<members>MapperConfig</members>
 		<name>ApexClass</name>
 	</types>
 	<version>36.0</version>

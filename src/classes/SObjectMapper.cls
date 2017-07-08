@@ -31,12 +31,14 @@ public class SObjectMapper {
 		Map<String, Set<String>> objectMapping = fieldMappingSource.getObjectMapping();
 		Map<String, String> fieldMapping = fieldMappingSource.getfieldMapping();
 		Map<String, Schema.SObjectType> objectNameToObjectTypeMap = new Map<String,Schema.SObjectType>();
+		Map<String, Map<String, Schema.SObjectField>> objectNameToFieldInfoMap = new Map<String, Map<String, Schema.SObjectField>>();
 		for(String objectName: objectMapping.keySet()){
 			Schema.SObjectType convertType = Schema.getGlobalDescribe().get(objectName);
 			if(convertType == null){
 				throw new SplitException('Cannot find sObject to split.');
 			}
 			objectNameToObjectTypeMap.put(objectName, convertType);
+			objectNameToFieldInfoMap.put(objectName, convertType.getDescribe().fields.getMap());
 		}
 		
 		for(String fieldToCopy : source.describeSource()){
@@ -57,15 +59,35 @@ public class SObjectMapper {
 					object valueToWrite = source.getValue(fieldToCopy);
 					if(valueToWrite != null){
 						try{
+							//TBD: dirty approach, change 
 							mappedObjects.get(objectName).put(childObjectFieldName, valueToWrite);
 						}catch(Exception e){
-							//TBD: remove
-							system.debug('Mapping Error ' + e.getMessage());
-							if(e.getMessage().contains('String to Decimal')){
-								system.debug('Error: String to Decimal conversation: (retry)');
-								system.debug('fieldToCopy_i ' + fieldToCopy);
-								mappedObjects.get(objectName).put(childObjectFieldName, Decimal.valueOf((String)valueToWrite));								
-							}												
+							Schema.DescribeFieldResult displayType;
+							FormatterResult formatterResult;
+							Boolean isLogError = false;
+							if(!objectNameToFieldInfoMap.get(objectName).containsKey(childObjectFieldName)){
+								isLogError = true;
+							}else{
+								displayType = objectNameToFieldInfoMap.get(objectName).get(childObjectFieldName).getDescribe();
+								system.debug('field.displayType - ' + displayType.getType());
+								IFieldFormatter formatter = FieldFormatterFactory.createFieldFormatter(displayType.getType());
+								if(formatter != null){
+									formatterResult = formatter.format(valueToWrite);
+									system.debug('formatterResult ' + formatterResult);
+									if(formatterResult.isSuccess){
+										mappedObjects.get(objectName).put(
+											childObjectFieldName,
+											formatterResult.data
+										);
+									}
+								}
+							}
+							if(formatterResult == null || !formatterResult.isSuccess || isLogError){
+								//TBD: add custom logger (posibility to mute debug output)
+								system.debug('[error: ' +'from: ' + fieldToCopy + ' to ' + childObjectFieldName + ']' +e.getMessage());
+								system.debug('\n' + e.getLineNumber());
+								system.debug('\n' + e.getStackTraceString());
+							}
 						}
 					}
 				}
