@@ -16,7 +16,10 @@
 		<members>FormatterResult</members>
 		<members>FormatterResultTest</members>
 		<members>FieldFormatterFactoryTest</members>
-		<members>MapperConfig</members>
+		<members>FieldMappingRule</members>
+		<members>MapperConfigBuilder</members>
+		<members>MapperConfigBuilderTest</members>
+		<members>FieldMappingRuleTest</members>
 		<name>ApexClass</name>
 	</types>
 	<version>36.0</version>
