@@ -37,11 +37,18 @@ public class FieldMapping implements IFieldMapping{
 	public Map<String, FieldMappingRule> getFieldMapping(){
 		return fieldMapping;
 	}
-
+	/**
+	 * sets default object name to map. 
+	 * @param  objectName objectName description
+	 */
 	public void setDefaultMappingObject(String objectName){
 		defaultMappingObject = objectName;
 	}
 
+	/**
+	 * gets default object name to map. 
+	 * @param  objectName objectName description
+	 */
 	public String getDefaultMappingObject(){
 		return defaultMappingObject;
 	}

@@ -1,6 +1,7 @@
 public class JsonResourceProvider implements IResourceProvider{
 	//TBD: support nested json by providing object flattening 
 	private Map<String, Object> sourceMap {get; set;}
+	private String objectName;
 	private Set<String> fields;
 
 	/**
@@ -8,6 +9,14 @@ public class JsonResourceProvider implements IResourceProvider{
 	 * @param  sourceString
 	 */ 
 	public JsonResourceProvider(String sourceString){
+		this(sourceString, '');
+	}
+	/**
+	 * JsonResourceProvider description
+	 * @param  sourceString
+	 */ 
+	public JsonResourceProvider(String sourceString, String objectName){
+		this.objectName = objectName;
 		sourceMap = new Map<String, Object>();
 		Map<String, Object> jsonMap = (Map<String, Object>)JSON.deserializeUntyped(sourceString);
 		for(String key : jsonMap.keySet()){
@@ -57,6 +66,6 @@ public class JsonResourceProvider implements IResourceProvider{
 	 * @return   return description
 	 */
 	public String getName(){
-		return '';
+		return objectName;
 	}
 }

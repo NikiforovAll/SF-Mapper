@@ -6,12 +6,18 @@ public class FieldFormatterFactory {
 		// e.g Type t= Type.forName(className); Type` instance =(Type`) t.newInstance();
 		formatterFactory = new Map<Schema.DisplayType, IFieldFormatter>{
 			Schema.DisplayType.Double => new StringToDecimalFormatter(),
+			Schema.DisplayType.Integer => new StringToIntegerFormatter(),
 			Schema.DisplayType.Boolean => new StringToBooleanFormatter(),
 			Schema.DisplayType.Date => new StringToDateFormatter(),
 			Schema.DisplayType.DateTime => new StringToDateTimeFormatter()
 		};
 	}
 
+	/**
+	 * createFieldFormatter description
+	 * @param  displayType displayType description
+	 * @return             return description
+	 */
 	public static IFieldFormatter createFieldFormatter(Schema.DisplayType displayType){
 		if(formatterFactory.containsKey(displayType)){
 			return formatterFactory.get(displayType);
@@ -47,6 +53,12 @@ public class FieldFormatterFactory {
 	public class StringToDecimalFormatter extends BaseFormatter{
 		protected override Object operation(Object field){
 			 return Decimal.valueOf((String)field);
+		}
+	}
+
+	public class StringToIntegerFormatter extends BaseFormatter{
+		protected override Object operation(Object field){
+			 return Integer.valueOf((String)field);
 		}
 	}
 

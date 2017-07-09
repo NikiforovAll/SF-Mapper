@@ -229,4 +229,55 @@ public class SObjectMapperTest {
 		system.assertEquals(lead.Email, contact.Email);
 		
 	}
+
+	@isTest static void test_multi_split_from_config_builder_success() {
+		//Arrange
+		SObjectMapper.initialize(
+			new MapperConfigBuilder('Lead')
+				.addObjectMapping('Account', '*')
+				.addObjectMapping('Contact', new List<String>{'Email', 'City'})
+				.addFieldMapping('Company', 'Name')
+				.addFieldMapping('City', 'MailingCity')
+		);
+		Lead lead = new Lead(
+			Email = 'testlead@test.com',
+			City = 'test address',
+			Phone = '123-123-123',
+			Company = 'Test Company'
+		);
+		//Act
+		Map<String, sObject> result = SObjectMapper.mapObject(lead);
+		Account account = (Account)result.get('Account');
+		Contact contact = (Contact)result.get('Contact');
+		//Assert
+		system.assertEquals(lead.Company, account.Name);
+		system.assertEquals(lead.Phone, account.Phone);
+		system.assertEquals(lead.City, contact.MailingCity);
+		system.assertEquals(lead.Email, contact.Email);
+		
+	}
+	@isTest static void test_multi_split_from_config_builder_json_success() {
+		//Arrange
+		SObjectMapper.initialize(
+			new MapperConfigBuilder('LeadFromJson')
+				.addObjectMapping('Account', '*')
+				.addObjectMapping('Contact', new List<String>{'Email', 'City'})
+				.addFieldMapping('City', 'MailingCity')
+				.addFieldMapping('numberOfEmployees', 'NumberOfEmployees')
+		);
+		Map<String, String> leadJson = new Map<String, String>{
+			'Email' => 'testlead@test.com',
+			'City' => 'test address',
+			'numberOfEmployees' => '3'
+		};
+		//Act
+		Map<String, sObject> result = SObjectMapper.mapObject(new JsonResourceProvider(JSON.serialize(leadJson), 'LeadFromJson'));
+		Contact contact = (Contact)result.get('Contact');
+		Account account = (Account)result.get('Account');
+		
+		//Assert
+		system.assertEquals(leadJson.get('City'), contact.MailingCity);
+		system.assertEquals(leadJson.get('Email'), contact.Email);
+		system.assertEquals(Integer.valueOf(leadJson.get('numberOfEmployees')), account.NumberOfEmployees);
+	}
 }

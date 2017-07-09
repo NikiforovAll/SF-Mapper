@@ -9,6 +9,7 @@ public class SObjectMapper {
 	 * @param  fieldMapping
 	 */
 	public static void initialize(String objectName, IFieldMapping fieldMapping){
+		system.debug('objectName.init  ' + objectName);
 		if(fieldMappingSource.containsKey(objectName)){
 			SObjectMapper.fieldMappingSource.remove(objectName);
 		}
@@ -24,6 +25,10 @@ public class SObjectMapper {
 		initialize(builder.getName(), fieldMapping);
 	}
 
+
+	public static Boolean isInitialized(String schemeName){
+		return fieldMappingSource.containsKey(schemeName);
+	}
 	/**
 	 * splits source into sobject map based on config from initialize method 
 	 * @param  source
@@ -41,6 +46,10 @@ public class SObjectMapper {
 		Map<String, FieldMappingRule> fieldMapping = fieldMappingSource.getfieldMapping();
 		Map<String, Schema.SObjectType> objectNameToObjectTypeMap = new Map<String,Schema.SObjectType>();
 		Map<String, Map<String, Schema.SObjectField>> objectNameToFieldInfoMap = new Map<String, Map<String, Schema.SObjectField>>();
+		String defaultObjectToMapName = fieldMappingSource.getDefaultMappingObject();
+		if(!objectMapping.containsKey(defaultObjectToMapName) && String.isNotBlank(defaultObjectToMapName)){
+			objectMapping.put(defaultObjectToMapName, new Set<String>());
+		}
 		for(String objectName: objectMapping.keySet()){
 			Schema.SObjectType convertType = Schema.getGlobalDescribe().get(objectName);
 			if(convertType == null){
@@ -56,18 +65,23 @@ public class SObjectMapper {
 				continue;
 			}
 			String objectToMapName ='';
+			if(String.IsNotBlank(fieldToCopy)){
+				fieldToCopy = fieldToCopy.toLowerCase();
+			}
+			
 			for(String objectName: objectMapping.keySet()){
 				if(objectMapping.get(objectName).contains(fieldToCopy)){
 					objectToMapName = objectName;
 				}
 			}
-			if(String.IsNotBlank(fieldMappingSource.getDefaultMappingObject()) && String.IsBlank(objectToMapName)){
-				objectToMapName = fieldMappingSource.getDefaultMappingObject();
+			if(String.IsNotBlank(defaultObjectToMapName) && String.IsBlank(objectToMapName)){
+				objectToMapName = defaultObjectToMapName;
 			}
 			if(String.IsBlank(objectToMapName)){
 				continue;
 			}
 			if(!mappedObjects.containsKey(objectToMapName)){
+				system.debug('objectToMapName ' + objectToMapName);
 				Schema.SObjectType convertType = objectNameToObjectTypeMap.get(objectToMapName);
 				SObject genericObject = convertType.newSObject();
 				mappedObjects.put(objectToMapName, genericObject);

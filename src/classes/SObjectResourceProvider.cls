@@ -11,6 +11,7 @@ public class SObjectResourceProvider implements IResourceProvider{
 				.getDescribe()
 				.getName();
 		}
+		system.debug('SObjectResourceProvider ' + sObjectName);
 	}
 	
 	/**
@@ -57,5 +58,9 @@ public class SObjectResourceProvider implements IResourceProvider{
 	 */
 	public String getName(){
 		return sObjectName;
+	}
+
+	public void setName(String name){
+		this.sObjectName = name;
 	}
 }
