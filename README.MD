@@ -17,7 +17,9 @@ SObjectMapper.initialize('Lead',
         //field mapping
         new Map<String, String>{
             'company' => 'name',
-            'city' => 'mailingcity'
+            'city' => 'mailingcity',
+            'phone' => 'phone',
+            'email' => 'email'
         }
     )
 );
@@ -31,6 +33,8 @@ SObjectMapper.initialize(
         .addObjectMapping('Contact', new List<String>{'Email', 'City'})
         .addFieldMapping('Company', 'Name')
         .addFieldMapping('City', 'MailingCity')
+        .addFieldMapping('Phone', 'Phone')
+        .addFieldMapping('Email', 'Email')
 );
 // OR 
 SObjectMapper.initialize(
@@ -39,13 +43,15 @@ SObjectMapper.initialize(
         .addObjectMapping('Contact', new List<String>{'Email', 'City'})
         .addFieldMapping('Company', 'Name')
         .addFieldMapping('City', 'MailingCity')
+        .addFieldMapping('Phone', 'Phone')
+        .addFieldMapping('Email', 'Email')
 );
 // OR (If you want add field formatting, please see wiki for details)
 SObjectMapper.initialize(
     new MapperConfigBuilder('Lead')
         .addObjectMapping('Account', '*') // default mapping object
         .addObjectMapping('Contact', new List<String>{'Email', 'City'})
-        .addFieldMapping('Company', new FieldMappingRule('Name', new MyCustomIFieldFormatter()))
+        .addFieldMapping(new FieldMappingRule('Company','Name', 'Account', new MyCustomIFieldFormatter()))
         .addFieldMapping('City', 'MailingCity')
 );
 ```
