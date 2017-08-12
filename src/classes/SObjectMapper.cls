@@ -30,7 +30,7 @@ public class SObjectMapper {
 		return fieldMappingSource.containsKey(schemeName);
 	}
 	/**
-	 * splits source into sobject map based on config from initialize method 
+	 * splits source into sobject map based on config from initialize method //TBD: need refactoring 
 	 * @param  source
 	 * @param  fieldMappingSource
 	 * @param  mappedObjects
@@ -42,15 +42,16 @@ public class SObjectMapper {
 			throw new SplitException('Field mapping for this object is empty. Make sure SObjectMapper.initialize was invoked.');
 		}
 		IFieldMapping fieldMappingSource = SObjectMapper.fieldMappingSource.get(describeMappingName);
-		Map<String, Set<String>> objectMapping = fieldMappingSource.getObjectMapping();
-		Map<String, FieldMappingRule> fieldMapping = fieldMappingSource.getfieldMapping();
+		// Map<String, Set<String>> objectMapping = fieldMappingSource.getObjectMapping();
+		Set<String> objectNameSet = fieldMappingSource.getObjectNames();
+		// Map<String, FieldMappingRule> fieldMapping = fieldMappingSource.getfieldMapping();
 		Map<String, Schema.SObjectType> objectNameToObjectTypeMap = new Map<String,Schema.SObjectType>();
 		Map<String, Map<String, Schema.SObjectField>> objectNameToFieldInfoMap = new Map<String, Map<String, Schema.SObjectField>>();
 		String defaultObjectToMapName = fieldMappingSource.getDefaultMappingObject();
-		if(!objectMapping.containsKey(defaultObjectToMapName) && String.isNotBlank(defaultObjectToMapName)){
-			objectMapping.put(defaultObjectToMapName, new Set<String>());
+		if(!objectNameSet.contains(defaultObjectToMapName) && String.isNotBlank(defaultObjectToMapName)){
+			objectNameSet.add(defaultObjectToMapName);
 		}
-		for(String objectName: objectMapping.keySet()){
+		for(String objectName: objectNameSet){
 			Schema.SObjectType convertType = Schema.getGlobalDescribe().get(objectName);
 			if(convertType == null){
 				throw new SplitException('Cannot find sObject to split.');
@@ -58,43 +59,43 @@ public class SObjectMapper {
 			objectNameToObjectTypeMap.put(objectName, convertType);
 			objectNameToFieldInfoMap.put(objectName, convertType.getDescribe().fields.getMap());
 		}
-		
-		for(String fieldToCopy : source.describeSource()){
+		for(FieldMappingRule mappingRule : fieldMappingSource.getMappingRules()){
+			// system.debug('mappingRule ' + mappingRule);
+			String fieldToCopy = mappingRule.source;
 			Boolean isCurrentFieldMapped = false;
+			
 			if(source.getValue(fieldToCopy) == null){
 				continue;
 			}
-			String objectToMapName ='';
+			String objectToMapName = mappingRule.objectName;
 			if(String.IsNotBlank(fieldToCopy)){
 				fieldToCopy = fieldToCopy.toLowerCase();
 			}
 			
-			for(String objectName: objectMapping.keySet()){
-				if(objectMapping.get(objectName).contains(fieldToCopy)){
-					objectToMapName = objectName;
-				}
-			}
 			if(String.IsNotBlank(defaultObjectToMapName) && String.IsBlank(objectToMapName)){
 				objectToMapName = defaultObjectToMapName;
 			}
+			
 			if(String.IsBlank(objectToMapName)){
 				continue;
 			}
 			if(!mappedObjects.containsKey(objectToMapName)){
-				system.debug('objectToMapName ' + objectToMapName);
+				// system.debug('objectToMapName ' + objectToMapName);
+				//TBD: possible to create empty object 
 				Schema.SObjectType convertType = objectNameToObjectTypeMap.get(objectToMapName);
 				SObject genericObject = convertType.newSObject();
 				mappedObjects.put(objectToMapName, genericObject);
 			}
 			string childObjectFieldName = fieldToCopy;
 			object valueToWrite = source.getValue(fieldToCopy);
-
-			if(fieldMapping.containsKey(fieldToCopy)){
-				childObjectFieldName = fieldMapping.get(fieldToCopy).destination;
-				IFieldFormatter formatter = fieldMapping.get(fieldToCopy).formatter;
-				if(formatter != null){
-					valueToWrite = formatter.format(valueToWrite);
-				}
+			// system.debug('valueToWrite ' + valueToWrite);
+			childObjectFieldName = mappingRule.destination;
+			if(String.IsNotBlank(childObjectFieldName)){
+				childObjectFieldName = childObjectFieldName.toLowerCase();
+			}
+			IFieldFormatter formatter = mappingRule.formatter;
+			if(formatter != null){
+				valueToWrite = formatter.format(valueToWrite);
 			}
 			if(valueToWrite != null){
 				try{
@@ -109,9 +110,9 @@ public class SObjectMapper {
 					}else{
 						displayType = objectNameToFieldInfoMap.get(objectToMapName).get(childObjectFieldName).getDescribe();
 						system.debug('field.displayType - ' + displayType.getType());
-						IFieldFormatter formatter = FieldFormatterFactory.createFieldFormatter(displayType.getType());
-						if(formatter != null){
-							formatterResult = formatter.format(valueToWrite);
+						IFieldFormatter fallbackFormatter = FieldFormatterFactory.createFieldFormatter(displayType.getType());
+						if(fallbackFormatter != null){
+							formatterResult = fallbackFormatter.format(valueToWrite);
 							system.debug('formatterResult ' + formatterResult);
 							if(formatterResult.isSuccess){
 								mappedObjects.get(objectToMapName).put(
@@ -123,9 +124,9 @@ public class SObjectMapper {
 					}
 					if(formatterResult == null || !formatterResult.isSuccess || isLogError){
 						//TBD: add custom logger (posibility to mute debug output)
-						system.debug('[error: ' +'from: ' + fieldToCopy + ' to ' + childObjectFieldName + ']' +e.getMessage());
-						system.debug('\n' + e.getLineNumber());
-						system.debug('\n' + e.getStackTraceString());
+						system.debug('[error: ' +'from: ' + fieldToCopy + ' to ' + childObjectFieldName + ']' +e.getMessage() + '\n');
+						system.debug(e.getLineNumber() + '\n');
+						system.debug(e.getStackTraceString());
 					}
 				}
 			}

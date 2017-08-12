@@ -1,5 +1,5 @@
 public interface IResourceProvider {
-	Set<String> describeSource();
+	// Set<String> describeSource();
 	Object getValue(String key);
 	String getName();
 }

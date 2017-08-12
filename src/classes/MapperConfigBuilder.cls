@@ -1,14 +1,21 @@
 public class MapperConfigBuilder {
 	private String mappingName;
 	private Map<String, List<String>> objectMapping;
-	private Map<String, FieldMappingRule> fieldMapping;
+	private List<Tuple2> fieldMappingContainer; 
+	private Boolean isConventionalMappingIsEnabled;
+ 
+
+	private List<FieldMappingRule> fieldMapping;
+
 	private String defaultObjectMapping; 
 
 	public MapperConfigBuilder(String mappingName){
 		this.mappingName = mappingName;
 		system.debug('this.mappingName' + this.mappingName);
 		this.objectMapping = new Map<String, List<String>>();
-		this.fieldMapping = new Map<String, FieldMappingRule>();
+		this.fieldMapping = new List<FieldMappingRule>();
+		this.fieldMappingContainer = new List<Tuple2>();
+		this.isConventionalMappingIsEnabled = false;
 	}
 
 	/**
@@ -51,10 +58,8 @@ public class MapperConfigBuilder {
 	 * @param  rule   -split rule 
 	 * @return
 	 */
-	public MapperConfigBuilder addFieldMapping(String source, FieldMappingRule rule){
-		if(String.isNotBlank(source)){
-			fieldMapping.put(source.toLowerCase(), rule);
-		}
+	public MapperConfigBuilder addFieldMapping(FieldMappingRule rule){
+		fieldMapping.add(rule);
 		return this;
 	}
 
@@ -64,8 +69,8 @@ public class MapperConfigBuilder {
 	 * @param  destination   - name of field in destination object
 	 * @return
 	 */
-	public MapperConfigBuilder addFieldMapping(String objectName, String destination){
-		addFieldMapping(objectName, new FieldMappingRule(destination, null));
+	public MapperConfigBuilder addFieldMapping(String source, String destination){
+		fieldMappingContainer.add(new Tuple2(source, destination));
 		return this;
 	}
 
@@ -74,10 +79,8 @@ public class MapperConfigBuilder {
 	 * @param  fieldMappingMap - 
 	 * @return
 	 */
-	public MapperConfigBuilder addFieldMapping(Map<String, FieldMappingRule> fieldMappingMap){
-		for(String key : fieldMappingMap.keySet()){
-			addFieldMapping(key, fieldMappingMap.get(key));
-		}
+	public MapperConfigBuilder addFieldMapping(List<FieldMappingRule> fieldMappingList){
+		fieldMapping.addAll(fieldMappingList);
 		return this;
 	}
 
@@ -93,17 +96,61 @@ public class MapperConfigBuilder {
 		return this;
 	}
 
+	public MapperConfigBuilder setConventionalMapping(Boolean isActivated){
+		this.isConventionalMappingIsEnabled = isActivated;
+		return this;
+	}
+
 	/**
 	 * builds mapping config 
 	 * @return   returns config to be used in 'SObjectMapper.initialize()' method
 	 */
 	public IFieldMapping build(){
-		Map<String, Set<String>> objectMappingResult = new Map<String, Set<String>>();
-		for(String key : objectMapping.keySet()){
-			objectMappingResult.put(key, new Set<String>(objectMapping.get(key)));
+		List<FieldMappingRule> resultList = new List<FieldMappingRule> (this.fieldMapping);
+		FieldMapping result = new FieldMapping(resultList);
+		Boolean isDefaultObjectMappingEnabled = false;
+		if(String.isNotBlank(defaultObjectMapping)){
+			result.setDefaultMappingObject(defaultObjectMapping);
+			isDefaultObjectMappingEnabled = true;
+			result.setDefaultObjectMapping(isDefaultObjectMappingEnabled);
 		}
-		FieldMapping result = new FieldMapping(objectMappingResult, fieldMapping);
-		result.setDefaultMappingObject(defaultObjectMapping);
+		for(Tuple2 tuple_i : this.fieldMappingContainer){
+			String source = tuple_i.val1;
+			if(String.isBlank(source)){
+				continue;
+			}
+			String currObjectName = findObjectByField(source, isDefaultObjectMappingEnabled);
+			if(String.isNotBlank(currObjectName)){
+				resultList.add(new FieldMappingRule(source, tuple_i.val2, currObjectName));
+			}
+		}
+		List<FieldMappingRule> mappingRulesCreatedByDefault = new List<FieldMappingRule>();
+		if(this.isConventionalMappingIsEnabled){
+			for(String objectName_i : objectMapping.keySet()){
+				List<String> destinationMappingList = objectMapping.get(objectName_i);
+				for(String sourceField_i : destinationMappingList){
+					Boolean isFoundAppropriateMappingRule = false;
+					for(FieldMappingRule rule_i : resultList){
+						if(rule_i.source.toLowerCase() == sourceField_i.toLowerCase()){
+							isFoundAppropriateMappingRule = true;
+							break;
+						}
+					}
+					if(!isFoundAppropriateMappingRule){
+						String destinationField = sourceField_i;
+						if(destinationField.contains(':')){
+							List<String> nameTokens = destinationField.split(':');
+							destinationField = nameTokens[nameTokens.size() - 1];
+						}
+						mappingRulesCreatedByDefault.add(new FieldMappingRule(sourceField_i, destinationField, objectName_i));
+					}
+				}
+			}
+		}
+		resultList.addAll(mappingRulesCreatedByDefault);
+		system.debug('build.mappingRulesCreatedByDefault ' + mappingRulesCreatedByDefault);
+		system.debug('build.resultList ' + resultList);
+		system.debug('build.result ' + result);
 		return result;
 	}
 
@@ -114,4 +161,35 @@ public class MapperConfigBuilder {
 	public String getName(){
 		return mappingName;
 	}
+
+	private String findObjectByField(String fieldName, Boolean defaultMapping){
+		String resultObjectName = '';
+		Boolean isFound = false;
+		for(String objectName_i : this.objectMapping.keySet()){
+			for(String sourceField_i : this.objectMapping.get(objectName_i)){
+				if(fieldName.toLowerCase() == sourceField_i.toLowerCase()){
+					resultObjectName = objectName_i;
+					isFound = true;
+					break;
+				}
+			}
+			if(isFound){
+				break;
+			}
+		}
+		if(!isFound  && defaultMapping){
+			resultObjectName = defaultObjectMapping;
+		}
+		return resultObjectName;
+	}
+	private class Tuple2{
+		public String val1 {get; set;}
+		public String val2 {get; set;}
+
+		public Tuple2(String val1, String val2){
+			this.val1 = val1;
+			this.val2 = val2;
+		}
+	}
+	
 }

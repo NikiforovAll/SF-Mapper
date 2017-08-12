@@ -46,10 +46,7 @@ public class SObjectResourceProvider implements IResourceProvider{
 		if(fields == null) {
 			describeSource();
 		}
-		if(fields.contains(key)){
-			return sourceObject.get(key);
-		}
-		return null;
+		return sourceObject.get(key);
 	}
 
 	/**

@@ -2,8 +2,8 @@
 private class FieldMappingRuleTest {
 	
 	@isTest static void test() {
-		new FieldMappingRule('destination');
-		new FieldMappingRule('destination', null);
+		new FieldMappingRule('source', 'destination', 'objectName');
+		new FieldMappingRule('source', 'destination', 'objectName', null);
 	}
 	
 }

@@ -9,9 +9,8 @@ private class JsonResourceProviderTest {
 			Company = 'Test Company'
 		);
 		JsonResourceProvider jsonProvider = new JsonResourceProvider(JSON.serialize(lead, true));
-		jsonProvider.describeSource();
 		jsonProvider.getName();
 		system.assertEquals(lead.Email, jsonProvider.getValue('email'));
-		jsonProvider = new JsonResourceProvider(JSON.serialize(lead, true), new Set<String>{'email'});
+		jsonProvider = new JsonResourceProvider(JSON.serialize(lead, true));
 	}
 }

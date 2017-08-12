@@ -17,9 +17,9 @@ private class MapperConfigBuilderTest {
 			.addFieldMapping(new Map<String, String>{
 				'test1' => 'dest1'
 			})
-			.addFieldMapping(new Map<String, FieldMappingRule>{
-				'test2' => new FieldMappingRule('dest2', new FieldFormatterFactory.BaseFormatter())
-			})
+			.addFieldMapping(
+				new FieldMappingRule('test2', 'dest2', 'Account', new FieldFormatterFactory.BaseFormatter())
+			)
 			.addObjectMapping('Account', 'test1')
 			.addObjectMapping('Account', 'test2')
 			.build();

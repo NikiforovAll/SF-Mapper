@@ -13,7 +13,9 @@ public class SObjectMapperTest {
 				//field mapping
 				new Map<String, String>{
 					'company' => 'name',
-					'city' => 'mailingCity'
+					'city' => 'mailingCity',
+					'phone' => 'phone',
+					'email' => 'email'
 				}
 			)
 		);
@@ -47,7 +49,9 @@ public class SObjectMapperTest {
 				//field mapping
 				new Map<String, String>{
 					'company' => 'name',
-					'city' => 'mailingCity'
+					'city' => 'mailingCity',
+					'phone' => 'phone',
+					'email' => 'email'
 				}
 			)
 		);
@@ -207,7 +211,9 @@ public class SObjectMapperTest {
 				//field mapping
 				new Map<String, String>{
 					'company' => 'name',
-					'city' => 'mailingCity'
+					'city' => 'mailingCity',
+					'phone' => 'phone',
+					'email' => 'email'
 				}
 			)
 		);
@@ -236,8 +242,10 @@ public class SObjectMapperTest {
 			new MapperConfigBuilder('Lead')
 				.addObjectMapping('Account', '*')
 				.addObjectMapping('Contact', new List<String>{'Email', 'City'})
-				.addFieldMapping('Company', 'Name')
 				.addFieldMapping('City', 'MailingCity')
+				.addFieldMapping('Company', 'Name')
+				.addFieldMapping('Phone', 'Phone')
+				.setConventionalMapping(true)
 		);
 		Lead lead = new Lead(
 			Email = 'testlead@test.com',
@@ -264,6 +272,7 @@ public class SObjectMapperTest {
 				.addObjectMapping('Contact', new List<String>{'Email', 'City'})
 				.addFieldMapping('City', 'MailingCity')
 				.addFieldMapping('numberOfEmployees', 'NumberOfEmployees')
+				.setConventionalMapping(true)
 		);
 		Map<String, String> leadJson = new Map<String, String>{
 			'Email' => 'testlead@test.com',
