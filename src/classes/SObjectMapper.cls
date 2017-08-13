@@ -31,12 +31,14 @@ public class SObjectMapper {
 	}
 	/**
 	 * splits source into sobject map based on config from initialize method //TBD: need refactoring 
+	 * NOTE: in order to support heirarchies you need to pass already built sObjectsContainerList that contains valid structure of paranets containers
+	 * //TBD: provide capability to build sObjectsContainerList based on field mapping rules
 	 * @param  source
 	 * @param  fieldMappingSource
 	 * @param  mappedObjects
 	 * @return returns map of sobjects "name of sobject" => "sobject"
 	 */
-	public static Map<String, SObject> mapObject(IResourceProvider source, Map<String, SObject> mappedObjects, String mappingName){
+	public static List<SObjectContainer> mapObject(IResourceProvider source, List<SObjectContainer> sObjectsContainerList, String mappingName){
 		String describeMappingName = String.isNotBlank(mappingName) ?  mappingName : source.getName();
 		if(!SObjectMapper.fieldMappingSource.containsKey(describeMappingName)){
 			throw new SplitException('Field mapping for this object is empty. Make sure SObjectMapper.initialize was invoked.');
@@ -62,78 +64,92 @@ public class SObjectMapper {
 		for(FieldMappingRule mappingRule : fieldMappingSource.getMappingRules()){
 			// system.debug('mappingRule ' + mappingRule);
 			String fieldToCopy = mappingRule.source;
+			String objectToMapName = mappingRule.objectName;
 			Boolean isCurrentFieldMapped = false;
-			
-			if(source.getValue(fieldToCopy) == null){
+			ResourceProviderResult valueToWrite = source.getValue(fieldToCopy);
+			if(valueToWrite == null || valueToWrite.data == null){
 				continue;
 			}
-			String objectToMapName = mappingRule.objectName;
+			// to be mapped*
+			String containerToMapId = mappingRule.getContainerId();
 			if(String.IsNotBlank(fieldToCopy)){
 				fieldToCopy = fieldToCopy.toLowerCase();
 			}
-			
-			if(String.IsNotBlank(defaultObjectToMapName) && String.IsBlank(objectToMapName)){
+			//object/container mapping 
+			if(String.IsNotBlank(defaultObjectToMapName) && String.IsBlank(containerToMapId)){
+				containerToMapId = defaultObjectToMapName;
 				objectToMapName = defaultObjectToMapName;
 			}
 			
 			if(String.IsBlank(objectToMapName)){
 				continue;
 			}
-			if(!mappedObjects.containsKey(objectToMapName)){
-				// system.debug('objectToMapName ' + objectToMapName);
-				//TBD: possible to create empty object 
-				Schema.SObjectType convertType = objectNameToObjectTypeMap.get(objectToMapName);
-				SObject genericObject = convertType.newSObject();
-				mappedObjects.put(objectToMapName, genericObject);
-			}
+
 			string childObjectFieldName = fieldToCopy;
-			object valueToWrite = source.getValue(fieldToCopy);
+			
 			// system.debug('valueToWrite ' + valueToWrite);
 			childObjectFieldName = mappingRule.destination;
 			if(String.IsNotBlank(childObjectFieldName)){
 				childObjectFieldName = childObjectFieldName.toLowerCase();
 			}
 			IFieldFormatter formatter = mappingRule.formatter;
-			if(formatter != null){
-				valueToWrite = formatter.format(valueToWrite);
-			}
-			if(valueToWrite != null){
+			SObjectContainer currContainer = SObjectContainerUtil.getSObjectContainerById(sObjectsContainerList, containerToMapId);
+
+			if(valueToWrite.isMultipleData){
+				//TBD: refactor
 				try{
-					//TBD: dirty approach, change 
-					mappedObjects.get(objectToMapName).put(childObjectFieldName, valueToWrite);
-				}catch(Exception e){
-					Schema.DescribeFieldResult displayType;
-					FormatterResult formatterResult;
-					Boolean isLogError = false;
-					if(!objectNameToFieldInfoMap.get(objectToMapName).containsKey(childObjectFieldName)){
-						isLogError = true;
-					}else{
-						displayType = objectNameToFieldInfoMap.get(objectToMapName).get(childObjectFieldName).getDescribe();
-						system.debug('field.displayType - ' + displayType.getType());
-						IFieldFormatter fallbackFormatter = FieldFormatterFactory.createFieldFormatter(displayType.getType());
-						if(fallbackFormatter != null){
-							formatterResult = fallbackFormatter.format(valueToWrite);
-							system.debug('formatterResult ' + formatterResult);
-							if(formatterResult.isSuccess){
-								mappedObjects.get(objectToMapName).put(
-									childObjectFieldName,
-									formatterResult.data
-								);
+					List<Object> valueToWriteList = (List<Object>)valueToWrite.data;
+					String currContainerParentId = mappingRule.getParentContainerId();
+					if(String.isNotBlank(currContainerParentId)){
+						SObjectContainer parentContainer = SObjectContainerUtil.getSObjectContainerById(sObjectsContainerList, mappingRule.getParentContainerId());
+						// system.debug('parentContainer ' + parentContainer);
+						if(parentContainer != null){
+							for(Integer i = 0 ; i < valueToWriteList.size(); i++){
+								Object dataToWrite_i = valueToWriteList[i];
+								String containerId_i = containerToMapId + String.valueOf(i);
+								SObjectContainer container_i = 
+									SObjectContainerUtil.getSObjectContainerById(parentContainer.getChildContainers(), containerId_i, 0);
+								if(container_i == null){
+									container_i = createSObjectContainer(objectNameToObjectTypeMap, objectToMapName, containerId_i);
+									parentContainer.getChildContainers().add(container_i);
+								}
+								writeMappingResultToSObject(container_i, dataToWrite_i, fieldToCopy, childObjectFieldName, objectToMapName, formatter, objectNameToFieldInfoMap);
 							}
 						}
+					}else{
+						for(Integer i = 0 ; i < valueToWriteList.size(); i++){
+							Object dataToWrite_i = valueToWriteList[i];
+							String containerId_i = containerToMapId + String.valueOf(i);
+							SObjectContainer container_i = SObjectContainerUtil.getSObjectContainerById(sObjectsContainerList, containerId_i, 0);
+							if(container_i == null){
+								container_i = createSObjectContainer(objectNameToObjectTypeMap, objectToMapName, containerId_i);
+								sObjectsContainerList.add(container_i);
+							}
+							writeMappingResultToSObject(container_i, dataToWrite_i, fieldToCopy, childObjectFieldName, objectToMapName, formatter, objectNameToFieldInfoMap);
+						}
+						
 					}
-					if(formatterResult == null || !formatterResult.isSuccess || isLogError){
-						//TBD: add custom logger (posibility to mute debug output)
-						system.debug('[error: ' +'from: ' + fieldToCopy + ' to ' + childObjectFieldName + ']' +e.getMessage() + '\n');
-						system.debug(e.getLineNumber() + '\n');
-						system.debug(e.getStackTraceString());
-					}
+				}catch(Exception e){
+					system.debug('[valueToWrite.isMultipleData cast to List<Object> Exception]' +e.getMessage());
+					system.debug(e.getLineNumber());
+					system.debug(e.getStackTraceString());
 				}
+			}else{
+				if(currContainer == null){
+					//TBD: possible to create empty object 
+					currContainer = createSObjectContainer(objectNameToObjectTypeMap, objectToMapName, containerToMapId);
+					sObjectsContainerList.add(currContainer);
+				}
+				writeMappingResultToSObject(currContainer, valueToWrite.data, fieldToCopy, childObjectFieldName, objectToMapName, formatter, objectNameToFieldInfoMap);
 			}
 		}
-		return mappedObjects;
+		return sObjectsContainerList;
 	}
-
+	public static Map<String, SObject> mapObject(IResourceProvider source, Map<String, SObject> mappedObjects, String mappingName){
+		//for backwards API compatability
+		List<SObjectContainer> result =  mapObject(source, SObjectContainerUtil.transfromSObjectMapToContainerList(mappedObjects), mappingName);
+		return SObjectContainerUtil.transfromContainerListToSObjectMap(result);
+	}
 	/**
 	 * splits sobject into sobject map based on config from initialize method 
 	 * @param  sObjectTomap
@@ -250,6 +266,61 @@ public class SObjectMapper {
 			throw new SplitException('Object is not found. Make sure that name is appropriate.');
 		}
 	}
-	
+
+	private static void writeMappingResultToSObject(
+		SObjectContainer currContainer,
+		Object valueToWrite,
+		String fieldToCopy, 
+		String childObjectFieldName,
+		String objectToMapName,
+		IFieldFormatter formatter,
+		Map<String, Map<String, Schema.SObjectField>> objectNameToFieldInfoMap){
+
+		if(formatter != null){
+			valueToWrite = formatter.format(valueToWrite);
+		}
+		if(valueToWrite != null){
+			try{
+				//TBD: dirty approach, change 
+				currContainer.putValue(childObjectFieldName, valueToWrite);
+			}catch(Exception e){
+				Schema.DescribeFieldResult displayType;
+				FormatterResult formatterResult;
+				Boolean isLogError = false;
+				if(!objectNameToFieldInfoMap.get(objectToMapName).containsKey(childObjectFieldName)){
+					isLogError = true;
+				}else{
+					displayType = objectNameToFieldInfoMap.get(objectToMapName).get(childObjectFieldName).getDescribe();
+					system.debug('field.displayType - ' + displayType.getType());
+					IFieldFormatter fallbackFormatter = FieldFormatterFactory.createFieldFormatter(displayType.getType());
+					if(fallbackFormatter != null){
+						formatterResult = fallbackFormatter.format(valueToWrite);
+						system.debug('formatterResult ' + formatterResult);
+						if(formatterResult.isSuccess){
+							currContainer.putValue(
+								childObjectFieldName,
+								formatterResult.data
+							);
+						}
+					}
+				}
+				if(formatterResult == null || !formatterResult.isSuccess || isLogError){
+					//TBD: add custom logger (posibility to mute debug output)
+					system.debug('[error: ' +'from: ' + fieldToCopy + ' to ' + childObjectFieldName + ']' +e.getMessage());
+					system.debug(e.getLineNumber());
+					system.debug(e.getStackTraceString());
+				}
+			}
+		}
+	}
+
+	private static SObjectContainer createSObjectContainer(Map<String, Schema.SObjectType> objectNameToObjectTypeMap, String objectToMapName, String containerToMapId){
+		Schema.SObjectType convertType = objectNameToObjectTypeMap.get(objectToMapName);
+		SObject genericObject = convertType.newSObject();
+		SObjectContainer result = new SObjectContainer(containerToMapId)
+			.setData(genericObject);
+		return result;
+	}
+
 	public class SplitException extends Exception{}
 }

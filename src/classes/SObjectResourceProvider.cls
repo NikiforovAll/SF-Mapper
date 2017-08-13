@@ -42,11 +42,15 @@ public class SObjectResourceProvider implements IResourceProvider{
 	 * @param  key key description
 	 * @return     return description
 	 */
-	public Object getValue(String key){
+	public ResourceProviderResult getValue(String key){
 		if(fields == null) {
 			describeSource();
 		}
-		return sourceObject.get(key);
+		Object result = sourceObject.get(key);
+		if(result == null){
+			return null;
+		}
+		return new ResourceProviderResult(result, false);
 	}
 
 	/**

@@ -3,6 +3,12 @@ public class JsonResourceProvider implements IResourceProvider{
 	private Map<String, Object> sourceMap {get; set;}
 	private String objectName;
 	// private Set<String> fields;
+	private static final String fieldSeparator;
+	private static final String iteratorSign; 
+	static{
+		fieldSeparator = ':';
+		iteratorSign = '[i]';
+	}
 
 	/**
 	 * JsonResourceProvider description
@@ -37,7 +43,7 @@ public class JsonResourceProvider implements IResourceProvider{
 	 * @param  key key description
 	 * @return     return description
 	 */
-	public Object getValue(String key){
+	public ResourceProviderResult getValue(String key){
 		// if(fields == null){
 		// 	describeSource();
 		// }
@@ -45,35 +51,83 @@ public class JsonResourceProvider implements IResourceProvider{
 			return null;
 		}
 		key = key.toLowerCase();
-		return getValueFromSource(key, this.sourceMap);
+		List<Object> resultContainer = new List<Object>();
+		getValueFromSource(key, this.sourceMap, resultContainer);
+		system.debug('resultContainer ' + resultContainer);
+		if(resultContainer.size() > 1){
+			return new ResourceProviderResult(resultContainer, true);
+		}else if(resultContainer.size() == 1){
+			return new ResourceProviderResult(resultContainer[0], false);
+		}
+		return null;
 	}
 
-	private Object getValueFromSource(String key, Map<String, Object> source){
-		String currentKey = key.substringBefore(':');
-		system.debug('currentKey ' + currentKey);
+	private List<Object> getValueFromSource(String key, Map<String, Object> source, List<Object> resultContainer){
+		//TBD: consider to cache, redundant map initialization and calculation of mapToLowerCaseKeys + refactoring + dirty approach, possible performance hit
+		String currentKey = key.substringBefore(fieldSeparator);
+		Boolean isMultipleAccess = false;
+		if(currentKey.contains(iteratorSign)){
+			isMultipleAccess = true;
+			currentKey = currentKey.replace(iteratorSign, '');
+		}
 		if(!source.containsKey(currentKey)){
 			return null;
 		}
 		Object currentObject = source.get(currentKey);
-		system.debug('JsonResourceProvider.currentKey ' + currentKey);
-		system.debug('JsonResourceProvider.currentObject ' + currentObject);
-		
-		if(key.contains(':') && source.get(currentKey) != null){
-			//TBD: consider to cache, redundant map initialization and calculation of mapToLowerCaseKeys
-			Map<String, Object> currentMapToLowerCaseKeys = new Map<String, Object>();
-			Map<String, Object> currentMap = (Map<String, Object>)currentObject;
-			for(String key_i : currentMap.keySet()){
-				currentMapToLowerCaseKeys.put(key_i.toLowerCase(), currentMap.get(key_i));
+		// system.debug('JsonResourceProvider.key ' + key);
+		// system.debug('JsonResourceProvider.currentKey ' + currentKey);
+		// system.debug('JsonResourceProvider.currentObject ' + currentObject);
+		//TBD: refactor
+		if(isMultipleAccess){
+			List<Object> currentModifiedObject;
+			isMultipleAccess = true;
+			currentModifiedObject = (List<Object>)currentObject;
+			for(Object objectToProcess_i : currentModifiedObject){
+				if(key.contains(fieldSeparator) && source.get(currentKey) != null){
+					
+						Map<String, Object>currentModifiedObject_i = (Map<String, Object>)objectToProcess_i;
+						Map<String, Object> currentMapToLowerCaseKeys = new Map<String, Object>();
+						for(String key_i : currentModifiedObject_i.keySet()){
+							currentMapToLowerCaseKeys.put(key_i.toLowerCase(), currentModifiedObject_i.get(key_i));
+						}
+						getValueFromSource(key.substringAfter(fieldSeparator), currentMapToLowerCaseKeys, resultContainer);
+				}else{
+					currentObject = tryToSerializeJSONToken(currentObject);
+					resultContainer.add(currentObject);
+				}
 			}
-			return getValueFromSource(key.substringAfter(':'), currentMapToLowerCaseKeys);
+			return resultContainer;
+		}else if(key.contains(fieldSeparator) && source.get(currentKey) != null){
+			Map<String, Object>currentModifiedObject = (Map<String, Object>)currentObject;
+			Map<String, Object> currentMapToLowerCaseKeys = new Map<String, Object>();
+			for(String key_i : currentModifiedObject.keySet()){
+				currentMapToLowerCaseKeys.put(key_i.toLowerCase(), currentModifiedObject.get(key_i));
+			}
+			return getValueFromSource(key.substringAfter(fieldSeparator), currentMapToLowerCaseKeys, resultContainer);
 		}
-		//TBD: dirty approach
+		currentObject = tryToSerializeJSONToken(currentObject);
+		resultContainer.add(currentObject);
+		return resultContainer;
+	}
+
+	private Object tryToSerializeJSONToken(Object objectToProcess){
+		//TBD: dirty approach 
+		Object result = objectToProcess;
 		try{
-			object foo = (Map<String, Object>)currentObject;
-			currentObject = JSON.serialize(foo);
-		}catch(Exception ex){
-		}	
-		return currentObject;
+			// if(result instanceof Map<String, Object>){
+			result = (Map<String, Object>)result;
+			result = JSON.serialize(result);
+			// }
+		}catch(Exception mapException){
+			try{
+				// if(result instanceof List<Object>){
+				result = (List<Object>)result;
+				result = JSON.serialize(result);
+				// }
+			}catch(Exception arrayException){
+			}
+		}
+		return result; 
 	}
 
 }
