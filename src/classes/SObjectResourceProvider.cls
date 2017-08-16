@@ -50,7 +50,7 @@ public class SObjectResourceProvider implements IResourceProvider{
 		if(result == null){
 			return null;
 		}
-		return new ResourceProviderResult(result, false);
+		return new ResourceProviderResult(result);
 	}
 
 	/**
@@ -60,8 +60,12 @@ public class SObjectResourceProvider implements IResourceProvider{
 	public String getName(){
 		return sObjectName;
 	}
-
+	
 	public void setName(String name){
 		this.sObjectName = name;
+	}
+
+	public Boolean build(){
+		return true;
 	}
 }

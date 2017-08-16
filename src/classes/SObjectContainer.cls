@@ -3,7 +3,7 @@ public class SObjectContainer {
 	private String prefix; 
 	private String postfix; 
 
-	private SObjectContainer parentContainer; 
+	public SObjectContainer parentContainer; 
 	private List<SObjectContainer> childContainers;
 	private SObject dataObject; 
 
@@ -16,6 +16,29 @@ public class SObjectContainer {
 
 	public String getContainerId(){
 		return prefix + containerId + postfix;
+	}
+
+	public String getContainerGroupId(){
+		return prefix + containerId;
+	}
+
+	public String getPrefix(){
+		return this.prefix;
+
+	}
+
+	public SObjectContainer setPrefix(String prefix){
+		this.prefix = prefix;
+		return this;
+	}
+
+	public String getPostfix(){
+		return postfix;
+	}
+
+	public SObjectContainer setPostfix(String postfix){
+		this.postfix = postfix;
+		return this;
 	}
 
 	public SObjectContainer setContainerId(String prefix, String containerId, String postfix){

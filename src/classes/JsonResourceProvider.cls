@@ -2,6 +2,7 @@ public class JsonResourceProvider implements IResourceProvider{
 	//TBD: support nested json by providing object flattening 
 	private Map<String, Object> sourceMap {get; set;}
 	private String objectName;
+	private String sourceString; 
 	// private Set<String> fields;
 	private static final String fieldSeparator;
 	private static final String iteratorSign; 
@@ -23,11 +24,8 @@ public class JsonResourceProvider implements IResourceProvider{
 	 */ 
 	public JsonResourceProvider(String sourceString, String objectName){
 		this.objectName = objectName;
-		sourceMap = new Map<String, Object>();
-		Map<String, Object> jsonMap = (Map<String, Object>)JSON.deserializeUntyped(sourceString);
-		for(String key : jsonMap.keySet()){
-			sourceMap.put(key.toLowerCase(), jsonMap.get(key));
-		}
+		this.sourceString = sourceString;
+		sourceMap = null;
 	}
 
 	/**
@@ -37,13 +35,26 @@ public class JsonResourceProvider implements IResourceProvider{
 	public String getName(){
 		return objectName;
 	}
-	
+
+	public Boolean build(){
+		if(sourceMap == null){
+			sourceMap = new Map<String, Object>();
+			Map<String, Object> jsonMap = (Map<String, Object>)JSON.deserializeUntyped(sourceString);
+			for(String keyToCopy : jsonMap.keySet()){
+				sourceMap.put(keyToCopy.toLowerCase(), jsonMap.get(keyToCopy));
+			}
+		}
+		return true;
+	}
 	/**
 	 * getValue description
 	 * @param  key key description
 	 * @return     return description
 	 */
 	public ResourceProviderResult getValue(String key){
+		if(sourceMap == null){
+			build();
+		}		
 		// if(fields == null){
 		// 	describeSource();
 		// }
@@ -51,18 +62,14 @@ public class JsonResourceProvider implements IResourceProvider{
 			return null;
 		}
 		key = key.toLowerCase();
-		List<Object> resultContainer = new List<Object>();
+		ResourceProviderResult resultContainer = new ResourceProviderResult('root');
 		getValueFromSource(key, this.sourceMap, resultContainer);
-		system.debug('resultContainer ' + resultContainer);
-		if(resultContainer.size() > 1){
-			return new ResourceProviderResult(resultContainer, true);
-		}else if(resultContainer.size() == 1){
-			return new ResourceProviderResult(resultContainer[0], false);
-		}
-		return null;
+		// system.debug('resultContainer ' + resultContainer);
+		
+		return resultContainer;
 	}
 
-	private List<Object> getValueFromSource(String key, Map<String, Object> source, List<Object> resultContainer){
+	private ResourceProviderResult getValueFromSource(String key, Map<String, Object> source, ResourceProviderResult resultContainer){
 		//TBD: consider to cache, redundant map initialization and calculation of mapToLowerCaseKeys + refactoring + dirty approach, possible performance hit
 		String currentKey = key.substringBefore(fieldSeparator);
 		Boolean isMultipleAccess = false;
@@ -77,6 +84,7 @@ public class JsonResourceProvider implements IResourceProvider{
 		// system.debug('JsonResourceProvider.key ' + key);
 		// system.debug('JsonResourceProvider.currentKey ' + currentKey);
 		// system.debug('JsonResourceProvider.currentObject ' + currentObject);
+		// system.debug('JsonResourceProvider.isMultipleAccess ' + isMultipleAccess);
 		//TBD: refactor
 		if(isMultipleAccess){
 			List<Object> currentModifiedObject;
@@ -84,16 +92,18 @@ public class JsonResourceProvider implements IResourceProvider{
 			currentModifiedObject = (List<Object>)currentObject;
 			for(Object objectToProcess_i : currentModifiedObject){
 				if(key.contains(fieldSeparator) && source.get(currentKey) != null){
-					
+						ResourceProviderResult currResultContainer_i = new ResourceProviderResult(currentKey);
+						resultContainer.addContainerLeaf(currResultContainer_i);
 						Map<String, Object>currentModifiedObject_i = (Map<String, Object>)objectToProcess_i;
 						Map<String, Object> currentMapToLowerCaseKeys = new Map<String, Object>();
 						for(String key_i : currentModifiedObject_i.keySet()){
 							currentMapToLowerCaseKeys.put(key_i.toLowerCase(), currentModifiedObject_i.get(key_i));
 						}
-						getValueFromSource(key.substringAfter(fieldSeparator), currentMapToLowerCaseKeys, resultContainer);
+						getValueFromSource(key.substringAfter(fieldSeparator), currentMapToLowerCaseKeys, currResultContainer_i);
 				}else{
 					currentObject = tryToSerializeJSONToken(currentObject);
-					resultContainer.add(currentObject);
+					// system.debug('resultContainer.addDataLeaf_1');
+					resultContainer.addDataLeaf(currentObject);
 				}
 			}
 			return resultContainer;
@@ -106,7 +116,14 @@ public class JsonResourceProvider implements IResourceProvider{
 			return getValueFromSource(key.substringAfter(fieldSeparator), currentMapToLowerCaseKeys, resultContainer);
 		}
 		currentObject = tryToSerializeJSONToken(currentObject);
-		resultContainer.add(currentObject);
+		if(resultContainer.getNodeName() == 'root'){
+			// system.debug('resultContainer.setData_1');
+			resultContainer.setData(currentObject);
+		}else{
+			// system.debug('resultContainer.addDataLeaf_2');
+			resultContainer.addDataLeaf(currentObject);
+		}
+		// resultContainer.addDataLeaf(currentObject);
 		return resultContainer;
 	}
 

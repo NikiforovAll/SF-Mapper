@@ -11,7 +11,7 @@ public class MapperConfigBuilder {
 
 	public MapperConfigBuilder(String mappingName){
 		this.mappingName = mappingName;
-		system.debug('this.mappingName' + this.mappingName);
+		// system.debug('this.mappingName' + this.mappingName);
 		this.objectMapping = new Map<String, List<String>>();
 		this.fieldMapping = new List<FieldMappingRule>();
 		this.fieldMappingContainer = new List<Tuple2>();
@@ -148,9 +148,10 @@ public class MapperConfigBuilder {
 			}
 		}
 		resultList.addAll(mappingRulesCreatedByDefault);
-		system.debug('build.mappingRulesCreatedByDefault ' + mappingRulesCreatedByDefault);
+		resultList.sort();
+		// system.debug('build.mappingRulesCreatedByDefault ' + mappingRulesCreatedByDefault);
 		system.debug('build.resultList ' + resultList);
-		system.debug('build.result ' + result);
+		// system.debug('build.result ' + result);
 		return result;
 	}
 

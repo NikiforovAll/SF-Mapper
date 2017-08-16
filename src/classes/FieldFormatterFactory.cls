@@ -1,10 +1,10 @@
 public class FieldFormatterFactory {
 	//factory method
-	public static Map<Schema.DisplayType, IFieldFormatter> formatterFactory;
+	public static Map<Schema.DisplayType, BaseFormatter> formatterFactory;
 	static{
 		// also can build factory dynamically from custom settings
 		// e.g Type t= Type.forName(className); Type` instance =(Type`) t.newInstance();
-		formatterFactory = new Map<Schema.DisplayType, IFieldFormatter>{
+		formatterFactory = new Map<Schema.DisplayType, BaseFormatter>{
 			//decimal
 			Schema.DisplayType.Double => new StringToDecimalFormatter(),
 			Schema.DisplayType.Currency => new StringToDecimalFormatter(),
@@ -40,21 +40,21 @@ public class FieldFormatterFactory {
 	 * @param  displayType displayType description
 	 * @return             return description
 	 */
-	public static IFieldFormatter createFieldFormatter(Schema.DisplayType displayType){
+	public static BaseFormatter createFieldFormatter(Schema.DisplayType displayType, MappingLogger logger){
 		if(formatterFactory.containsKey(displayType)){
-			return formatterFactory.get(displayType);
+			BaseFormatter formatter = formatterFactory.get(displayType);
+			formatter.setLogger(logger);
+			return formatter;
 		}
 		return null;
 	}
 
-	private static void LogFormatterError(Exception e){
-		system.debug('[StringToDecimalFormatter.error]' +  e.getMessage() + '\n');
-		system.debug(e.getLineNumber() + '\n');
-		system.debug(e.getStackTraceString());
-	}
+
 
 	//TBD: move to separate files
 	public virtual class BaseFormatter implements IFieldFormatter{
+		private MappingLogger logger;
+
 		public FormatterResult format(Object field){
 			Object res;
 			Boolean isSuccess = true;
@@ -71,8 +71,19 @@ public class FieldFormatterFactory {
 			return String.valueOf(field);
 		}
 
+		public void setLogger(MappingLogger logger){
+			this.logger = logger;
+		}
+
+		private void LogFormatterError(Exception e){
+			String shortErrorMessage = '[Formatter.error]' +  e.getMessage();
+			String errorMessage = shortErrorMessage + '\n' + e.getStackTraceString();
+			// logger.addLog(new MappingLog(errorMessage, shortErrorMessage, MappingLogger.LogType.Warning));
+			system.debug(errorMessage);
+		}
 	}
 	public class StringToDecimalFormatter extends BaseFormatter{
+
 		protected override Object operation(Object field){
 			 return Decimal.valueOf((String)field);
 		}

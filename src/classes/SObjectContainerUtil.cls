@@ -17,8 +17,8 @@ public class SObjectContainerUtil {
 			return null;
 		}
 		depth = depth - 1;
-		system.debug('sObjectContainerList ' + sObjectContainerList);
-		system.debug('containerId ' + containerId);
+		// system.debug('sObjectContainerList ' + sObjectContainerList);
+		// system.debug('containerId ' + containerId);
 		
 		for(SObjectContainer container_i : sObjectContainerList){
 			if(container_i.getContainerId() == containerId){
@@ -32,9 +32,30 @@ public class SObjectContainerUtil {
 		return null;
 	}
 
+	public static List<SObjectContainer> getSObjectContainerGroupById(List<SObjectContainer> sObjectContainerList, String groupId){
+		List<SObjectContainer> result = new List<SObjectContainer>();
+		getSObjectContainerGroupById(sObjectContainerList, groupId, result);
+		return result;
+	}
+
+	private static List<SObjectContainer> getSObjectContainerGroupById(List<SObjectContainer> sObjectContainerList, String groupId, List<SObjectContainer> result){
+		// system.debug('sObjectContainerList ' + sObjectContainerList);
+		for(SObjectContainer container_i : sObjectContainerList){
+			// system.debug('groupId ' + groupId);
+			// system.debug('container_i.getContainerGroupId() ' + container_i.getContainerGroupId());
+			// system.debug('container_i ' + container_i);
+			if(container_i.getContainerGroupId() == groupId){
+				result.add(container_i);
+				continue;
+			}
+			List<SObjectContainer> childResult = getSObjectContainerGroupById(container_i.getChildContainers(), groupId, result);
+		}
+		return result;
+	}
+
 	public static Map<String, SObject> transfromContainerListToSObjectMap(List<SObjectContainer> containerList){
 		Map<String, SObject> resultMap = new Map<String, SObject>();
-		system.debug('containerList ' + containerList);
+		// system.debug('containerList ' + containerList);
 		for(SObjectContainer container_i : containerList){
 			if(!resultMap.containsKey(container_i.getContainerId())){
 				resultMap.put(container_i.getContainerId(), container_i.getData());
