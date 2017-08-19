@@ -1,0 +1,932 @@
+[
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app",
+            "isDirectory": true,
+            "isMetadataFile": false,
+            "size": 4096,
+            "modifiedTime": 1502197463322,
+            "changeTime": 1503155646466,
+            "contentHash": "b28b7af69320201d1cf206ebf28373980add1451",
+            "isWorkspace": false,
+            "isArtifactRoot": true
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main",
+            "isDirectory": true,
+            "isMetadataFile": false,
+            "size": 4096,
+            "modifiedTime": 1503155270014,
+            "changeTime": 1503155270014,
+            "contentHash": "7505d64a54e061b7acd54ccd58b49dc43500b635",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default",
+            "isDirectory": true,
+            "isMetadataFile": false,
+            "size": 4096,
+            "modifiedTime": 1503155662902,
+            "changeTime": 1503155662902,
+            "contentHash": "78dd78c06e81fd7afb457ecdb5af8fae5546e0a3",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/aura",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/aura",
+            "isDirectory": true,
+            "isMetadataFile": false,
+            "size": 4096,
+            "modifiedTime": 1502197463322,
+            "changeTime": 1502197463322,
+            "contentHash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes",
+            "isDirectory": true,
+            "isMetadataFile": false,
+            "size": 4096,
+            "modifiedTime": 1502971120644,
+            "changeTime": 1503155662910,
+            "contentHash": "6e797ee8118d1924ccb15ccd64c14e28f00a79cf",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/FieldFormatterFactory.cls",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/FieldFormatterFactory.cls",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 3588,
+            "modifiedTime": 1502871172871,
+            "changeTime": 1503155662902,
+            "contentHash": "874027de0ba2bb8d82c553d875bbb229df589a46",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/FieldFormatterFactory.cls-meta.xml",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/FieldFormatterFactory.cls-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 174,
+            "modifiedTime": 1502370084291,
+            "changeTime": 1503155662902,
+            "contentHash": "b2f04e173ae3fcb8d002e0a2c63d07860dbf1d04",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/FieldFormatterFactoryTest.cls",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/FieldFormatterFactoryTest.cls",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 639,
+            "modifiedTime": 1502370084291,
+            "changeTime": 1503155662902,
+            "contentHash": "92fd51089509b677160b8629d42550d446646860",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/FieldFormatterFactoryTest.cls-meta.xml",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/FieldFormatterFactoryTest.cls-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 174,
+            "modifiedTime": 1502370084295,
+            "changeTime": 1503155662902,
+            "contentHash": "b2f04e173ae3fcb8d002e0a2c63d07860dbf1d04",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/FieldMapping.cls",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/FieldMapping.cls",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 3651,
+            "modifiedTime": 1502521742918,
+            "changeTime": 1503155662902,
+            "contentHash": "8c12a4f61f8ab3625cb23c1a86ed4c68b474868d",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/FieldMapping.cls-meta.xml",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/FieldMapping.cls-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 174,
+            "modifiedTime": 1502370084295,
+            "changeTime": 1503155662902,
+            "contentHash": "b2f04e173ae3fcb8d002e0a2c63d07860dbf1d04",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/FieldMappingRule.cls",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/FieldMappingRule.cls",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 3963,
+            "modifiedTime": 1502891080860,
+            "changeTime": 1503155662902,
+            "contentHash": "0ba03566eec33cb4db7ef471d1740d20f02e52ff",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/FieldMappingRule.cls-meta.xml",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/FieldMappingRule.cls-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 174,
+            "modifiedTime": 1502370084295,
+            "changeTime": 1503155662902,
+            "contentHash": "b2f04e173ae3fcb8d002e0a2c63d07860dbf1d04",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/FieldMappingRuleTest.cls",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/FieldMappingRuleTest.cls",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 215,
+            "modifiedTime": 1502532657350,
+            "changeTime": 1503155662902,
+            "contentHash": "86b4271d8326318d02f9f7d0c953bf154ff43c4c",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/FieldMappingRuleTest.cls-meta.xml",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/FieldMappingRuleTest.cls-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 174,
+            "modifiedTime": 1502370084295,
+            "changeTime": 1503155662902,
+            "contentHash": "b2f04e173ae3fcb8d002e0a2c63d07860dbf1d04",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/FieldMappingTest.cls",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/FieldMappingTest.cls",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 322,
+            "modifiedTime": 1502370084295,
+            "changeTime": 1503155662902,
+            "contentHash": "46f2bd8b5d65031f62d6795533d8ecf4ec9f8d68",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/FieldMappingTest.cls-meta.xml",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/FieldMappingTest.cls-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 174,
+            "modifiedTime": 1502370084299,
+            "changeTime": 1503155662902,
+            "contentHash": "b2f04e173ae3fcb8d002e0a2c63d07860dbf1d04",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/FormatterResult.cls",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/FormatterResult.cls",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 217,
+            "modifiedTime": 1502370084299,
+            "changeTime": 1503155662902,
+            "contentHash": "9a19cac13a79911c00cfd87edf667db70d88b6ef",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/FormatterResult.cls-meta.xml",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/FormatterResult.cls-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 174,
+            "modifiedTime": 1502370084299,
+            "changeTime": 1503155662902,
+            "contentHash": "b2f04e173ae3fcb8d002e0a2c63d07860dbf1d04",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/FormatterResultTest.cls",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/FormatterResultTest.cls",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 122,
+            "modifiedTime": 1502370084299,
+            "changeTime": 1503155662906,
+            "contentHash": "6052eb6cde1c7f9c717de2b5d7a9adf5b34cfc85",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/FormatterResultTest.cls-meta.xml",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/FormatterResultTest.cls-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 174,
+            "modifiedTime": 1502370084299,
+            "changeTime": 1503155662906,
+            "contentHash": "b2f04e173ae3fcb8d002e0a2c63d07860dbf1d04",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/IFieldFormatter.cls",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/IFieldFormatter.cls",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 75,
+            "modifiedTime": 1502370084299,
+            "changeTime": 1503155662906,
+            "contentHash": "c02eddc2435aa83d48358bb0ae60ccbf622a1236",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/IFieldFormatter.cls-meta.xml",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/IFieldFormatter.cls-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 174,
+            "modifiedTime": 1502370084303,
+            "changeTime": 1503155662906,
+            "contentHash": "b2f04e173ae3fcb8d002e0a2c63d07860dbf1d04",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/IFieldMapping.cls",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/IFieldMapping.cls",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 291,
+            "modifiedTime": 1502521711662,
+            "changeTime": 1503155662906,
+            "contentHash": "485f561a9f996d8569c914b16666b86908079205",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/IFieldMapping.cls-meta.xml",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/IFieldMapping.cls-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 174,
+            "modifiedTime": 1502370084303,
+            "changeTime": 1503155662906,
+            "contentHash": "b2f04e173ae3fcb8d002e0a2c63d07860dbf1d04",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/IResourceProvider.cls",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/IResourceProvider.cls",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 155,
+            "modifiedTime": 1502889711228,
+            "changeTime": 1503155662906,
+            "contentHash": "38de6f52decb5cedb205991fe314ce0f22133704",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/IResourceProvider.cls-meta.xml",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/IResourceProvider.cls-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 174,
+            "modifiedTime": 1502370084307,
+            "changeTime": 1503155662906,
+            "contentHash": "b2f04e173ae3fcb8d002e0a2c63d07860dbf1d04",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/JsonResourceProvider.cls",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/JsonResourceProvider.cls",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 5196,
+            "modifiedTime": 1502889822488,
+            "changeTime": 1503155662906,
+            "contentHash": "87db4af8de447cd218c9a06aa84fd0ddf03e331d",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/JsonResourceProvider.cls-meta.xml",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/JsonResourceProvider.cls-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 174,
+            "modifiedTime": 1502370084307,
+            "changeTime": 1503155662906,
+            "contentHash": "b2f04e173ae3fcb8d002e0a2c63d07860dbf1d04",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/JsonResourceProviderTest.cls",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/JsonResourceProviderTest.cls",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 499,
+            "modifiedTime": 1502893841680,
+            "changeTime": 1503155662906,
+            "contentHash": "c706ea0301a145c703d62a7b0e14a45f4d6b1bf5",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/JsonResourceProviderTest.cls-meta.xml",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/JsonResourceProviderTest.cls-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 174,
+            "modifiedTime": 1502370084307,
+            "changeTime": 1503155662906,
+            "contentHash": "b2f04e173ae3fcb8d002e0a2c63d07860dbf1d04",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/MapperConfigBuilder.cls",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/MapperConfigBuilder.cls",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 5954,
+            "modifiedTime": 1502886901584,
+            "changeTime": 1503155662906,
+            "contentHash": "62a0de8b9bd4d78d22daff31d1e01263ea87353f",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/MapperConfigBuilder.cls-meta.xml",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/MapperConfigBuilder.cls-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 174,
+            "modifiedTime": 1502370084307,
+            "changeTime": 1503155662906,
+            "contentHash": "b2f04e173ae3fcb8d002e0a2c63d07860dbf1d04",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/MapperConfigBuilderTest.cls",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/MapperConfigBuilderTest.cls",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 951,
+            "modifiedTime": 1502532865486,
+            "changeTime": 1503155662906,
+            "contentHash": "6870f84b6d64a6702b418c1ec21f1df680cd7740",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/MapperConfigBuilderTest.cls-meta.xml",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/MapperConfigBuilderTest.cls-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 174,
+            "modifiedTime": 1502370084311,
+            "changeTime": 1503155662906,
+            "contentHash": "b2f04e173ae3fcb8d002e0a2c63d07860dbf1d04",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/MappingLog.cls",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/MappingLog.cls",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 609,
+            "modifiedTime": 1502869582159,
+            "changeTime": 1503155662906,
+            "contentHash": "0d1bf3065623020e7022141cd5b6031d9003c06a",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/MappingLog.cls-meta.xml",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/MappingLog.cls-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 174,
+            "modifiedTime": 1502865233507,
+            "changeTime": 1503155662906,
+            "contentHash": "d3aef1962f612e7e3db36e965fa06b72bf50ee30",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/MappingLogger.cls",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/MappingLogger.cls",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 426,
+            "modifiedTime": 1502866461163,
+            "changeTime": 1503155662906,
+            "contentHash": "7ba9d634e90e282e9023b3aeabd37d9efebf12c0",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/MappingLogger.cls-meta.xml",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/MappingLogger.cls-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 174,
+            "modifiedTime": 1502865212515,
+            "changeTime": 1503155662906,
+            "contentHash": "d3aef1962f612e7e3db36e965fa06b72bf50ee30",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/ResourceProviderResult.cls",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/ResourceProviderResult.cls",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 3307,
+            "modifiedTime": 1502889232372,
+            "changeTime": 1503155662906,
+            "contentHash": "3c2babbc9c63d34695a8bb54526396a32495f38b",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/ResourceProviderResult.cls-meta.xml",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/ResourceProviderResult.cls-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 174,
+            "modifiedTime": 1502550418022,
+            "changeTime": 1503155662906,
+            "contentHash": "d3aef1962f612e7e3db36e965fa06b72bf50ee30",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/ResourceProviderResultTest.cls",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/ResourceProviderResultTest.cls",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 840,
+            "modifiedTime": 1502712791292,
+            "changeTime": 1503155662906,
+            "contentHash": "2c4f5ff840faf358196d089c7439510dc7dfacc0",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/ResourceProviderResultTest.cls-meta.xml",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/ResourceProviderResultTest.cls-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 174,
+            "modifiedTime": 1502712007992,
+            "changeTime": 1503155662906,
+            "contentHash": "d3aef1962f612e7e3db36e965fa06b72bf50ee30",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/SObjectContainer.cls",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/SObjectContainer.cls",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 1876,
+            "modifiedTime": 1502790804258,
+            "changeTime": 1503155662906,
+            "contentHash": "53ae594c60f85645c0280bf712d1262a1768da41",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/SObjectContainer.cls-meta.xml",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/SObjectContainer.cls-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 174,
+            "modifiedTime": 1502539044370,
+            "changeTime": 1503155662906,
+            "contentHash": "d3aef1962f612e7e3db36e965fa06b72bf50ee30",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/SObjectContainerTest.cls",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/SObjectContainerTest.cls",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 278,
+            "modifiedTime": 1502545984418,
+            "changeTime": 1503155662906,
+            "contentHash": "2dbb7f57974ebc50d2d211fcf50c65f5219502d6",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/SObjectContainerTest.cls-meta.xml",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/SObjectContainerTest.cls-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 174,
+            "modifiedTime": 1502541702810,
+            "changeTime": 1503155662910,
+            "contentHash": "d3aef1962f612e7e3db36e965fa06b72bf50ee30",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/SObjectContainerUtil.cls",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/SObjectContainerUtil.cls",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 3050,
+            "modifiedTime": 1502886556748,
+            "changeTime": 1503155662910,
+            "contentHash": "287ec833a237c17a31c74c5669d7a128a68887cb",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/SObjectContainerUtil.cls-meta.xml",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/SObjectContainerUtil.cls-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 174,
+            "modifiedTime": 1502543962518,
+            "changeTime": 1503155662910,
+            "contentHash": "d3aef1962f612e7e3db36e965fa06b72bf50ee30",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/SObjectContainerUtilTest.cls",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/SObjectContainerUtilTest.cls",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 449,
+            "modifiedTime": 1502542234662,
+            "changeTime": 1503155662910,
+            "contentHash": "02b85b3a246db47fe4e6f957dec376531a2e9911",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/SObjectContainerUtilTest.cls-meta.xml",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/SObjectContainerUtilTest.cls-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 174,
+            "modifiedTime": 1502541685634,
+            "changeTime": 1503155662910,
+            "contentHash": "d3aef1962f612e7e3db36e965fa06b72bf50ee30",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/SObjectMapper.cls",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/SObjectMapper.cls",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 11573,
+            "modifiedTime": 1502970083180,
+            "changeTime": 1503155662910,
+            "contentHash": "c3b75a9723c4383e1507a0164bda550fc7a2b1f1",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/SObjectMapper.cls-meta.xml",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/SObjectMapper.cls-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 174,
+            "modifiedTime": 1502370084311,
+            "changeTime": 1503155662910,
+            "contentHash": "b2f04e173ae3fcb8d002e0a2c63d07860dbf1d04",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/SObjectMapperManager.cls",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/SObjectMapperManager.cls",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 8778,
+            "modifiedTime": 1502970994260,
+            "changeTime": 1503155662910,
+            "contentHash": "2d52f6962c51603299ddf0bde9abfdb2ce0edf1b",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/SObjectMapperManager.cls-meta.xml",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/SObjectMapperManager.cls-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 174,
+            "modifiedTime": 1502957663463,
+            "changeTime": 1503155662910,
+            "contentHash": "d3aef1962f612e7e3db36e965fa06b72bf50ee30",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/SObjectMapperTest.cls",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/SObjectMapperTest.cls",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 8901,
+            "modifiedTime": 1502535018358,
+            "changeTime": 1503155662910,
+            "contentHash": "b353779023e0c21b79e6ed8f194410b63741077c",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/SObjectMapperTest.cls-meta.xml",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/SObjectMapperTest.cls-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 174,
+            "modifiedTime": 1502370084311,
+            "changeTime": 1503155662910,
+            "contentHash": "b2f04e173ae3fcb8d002e0a2c63d07860dbf1d04",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/SObjectResourceProvider.cls",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/SObjectResourceProvider.cls",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 1645,
+            "modifiedTime": 1502889745472,
+            "changeTime": 1503155662910,
+            "contentHash": "1ccd620f9297cf0dc87ba0e250fb9446d8506301",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/SObjectResourceProvider.cls-meta.xml",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/SObjectResourceProvider.cls-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 174,
+            "modifiedTime": 1502370084315,
+            "changeTime": 1503155662910,
+            "contentHash": "b2f04e173ae3fcb8d002e0a2c63d07860dbf1d04",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/SObjectResourceProviderTest.cls",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/SObjectResourceProviderTest.cls",
+            "isDirectory": false,
+            "isMetadataFile": false,
+            "size": 380,
+            "modifiedTime": 1502370084315,
+            "changeTime": 1503155662910,
+            "contentHash": "33a868dd0841195aee34c3a9e76479f79ab8c7e8",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/SObjectResourceProviderTest.cls-meta.xml",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper/force-app/main/default/classes/SObjectResourceProviderTest.cls-meta.xml",
+            "isDirectory": false,
+            "isMetadataFile": true,
+            "size": 174,
+            "modifiedTime": 1502370084315,
+            "changeTime": 1503155662910,
+            "contentHash": "b2f04e173ae3fcb8d002e0a2c63d07860dbf1d04",
+            "isWorkspace": false,
+            "isArtifactRoot": false
+        }
+    ],
+    [
+        "/home/user/Nikiforov/Salesforce/SF-Mapper",
+        {
+            "state": "n",
+            "sourcePath": "/home/user/Nikiforov/Salesforce/SF-Mapper",
+            "isDirectory": true,
+            "isMetadataFile": false,
+            "size": 4096,
+            "modifiedTime": 1503155700318,
+            "changeTime": 1503155700318,
+            "contentHash": "0f498b01beea1542b7d9e8d25961535a8a713599",
+            "isWorkspace": true,
+            "isArtifactRoot": false
+        }
+    ]
+]

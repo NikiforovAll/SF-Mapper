@@ -49,6 +49,10 @@ public class FieldFormatterFactory {
 		return null;
 	}
 
+	public static BaseFormatter createFieldFormatter(Schema.DisplayType displayType){
+		return createFieldFormatter(displayType, null);
+	}
+
 
 
 	//TBD: move to separate files

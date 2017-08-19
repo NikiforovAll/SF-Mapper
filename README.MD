@@ -1,4 +1,5 @@
 SF Mapper
+[![Build Status](https://travis-ci.org/NikiforovAll/SF-Mapper.svg?branch=sfdx-structure)](https://travis-ci.org/NikiforovAll/SF-Mapper)
 ==========================
 ### [What is SF Mapper?](https://github.com/NikiforovAll/SF-Mapper/wiki)
 

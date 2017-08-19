@@ -1,0 +1,5 @@
+{
+    "files.exclude": {
+        "force-app/main/default/classes/*.xml": true
+    }
+}
